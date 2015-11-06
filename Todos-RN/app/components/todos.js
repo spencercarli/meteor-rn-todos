@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 
 let TodoItem = require('./todoItem');
+let TodoItemAdd = require('./todoItemAdd');
 
 export default React.createClass({
   // Configuration
@@ -31,6 +32,7 @@ export default React.createClass({
   render() {
     return (
       <ScrollView>
+        <TodoItemAdd />
         {this.renderItems()}
       </ScrollView>
     )
