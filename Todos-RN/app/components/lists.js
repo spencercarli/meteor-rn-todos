@@ -6,6 +6,7 @@ let {
   ScrollView,
   PixelRatio,
   TouchableHighlight,
+  Image,
 } = React;
 
 let Todos = require('./todos');
@@ -58,6 +59,11 @@ export default React.createClass({
             >
             <View style={styles.row}>
               <Text>{list.name}</Text>
+
+              <Image
+                source={require('image!fa-chevron-right')}
+                style={styles.rightIcon}
+                />
             </View>
           </TouchableHighlight>
           <View style={styles.border} />
@@ -78,10 +84,17 @@ export default React.createClass({
 
 const styles = StyleSheet.create({
   row: {
-    padding: 15
+    padding: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1
   },
   border: {
     height: 1 / PixelRatio.get(),
     backgroundColor: 'rgba(0, 0, 0, 0.5)'
+  },
+  rightIcon: {
+    position: 'absolute',
+    right: 15
   }
 });

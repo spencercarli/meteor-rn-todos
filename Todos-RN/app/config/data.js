@@ -2,6 +2,7 @@ let todos = [
   { _id: 'ieQKT6zMPMWvTtcZr',
     listId: 'N7qDuxqYorwkfuKqf',
     text: 'Data on the Wire',
+    checked: true,
     createdAt: new Date("Thu Nov 05 2015 16:47:38 GMT-0500 (EST)") },
   { _id: 'AdA8rnJdJL59PTd9Q',
     listId: 'N7qDuxqYorwkfuKqf',
