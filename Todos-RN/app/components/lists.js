@@ -11,6 +11,8 @@ let {
 } = React;
 
 let Todos = require('./todos');
+let ListItemAdd = require('./listItemAdd');
+
 let data = require('../config/data');
 let _ = require('underscore');
 
@@ -92,6 +94,7 @@ export default React.createClass({
   render() {
     return (
       <ScrollView>
+        <ListItemAdd />
         {this.renderItems()}
       </ScrollView>
     );
