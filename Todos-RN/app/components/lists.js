@@ -7,6 +7,7 @@ let {
   PixelRatio,
   TouchableHighlight,
   Image,
+  ActionSheetIOS,
 } = React;
 
 let Todos = require('./todos');
@@ -28,6 +29,17 @@ export default React.createClass({
   },
 
   // Click Handlers
+  handleOptions() {
+    let buttons = ['Make Private', 'Delete', 'Cancel'];
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: buttons,
+      cancelButtonIndex: 2,
+      destructiveButtonIndex: 1
+    }, (buttonIndex) => {
+      console.log('Todo: Options');
+    });
+  },
+
   handlePress(list) {
     let nav = this.props.navigator;
 
@@ -41,6 +53,10 @@ export default React.createClass({
       leftButton: {
         title: "Back",
         handler: () => nav.pop()
+      },
+      rightButton: {
+        title: "Options",
+        handler: this.handleOptions
       },
       passProps: {
         todos: todos

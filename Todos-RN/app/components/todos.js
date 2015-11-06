@@ -23,7 +23,7 @@ export default React.createClass({
   // Sub-render
   renderItems() {
     return this.props.todos.map((todo, i) => {
-      return <TodoItem todo={todo} />
+      return <TodoItem todo={todo} key={todo._id} />
     });
   },
 

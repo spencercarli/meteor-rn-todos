@@ -36,9 +36,14 @@ export default React.createClass({
       title.title = route.title;
     }
 
-    let leftButton = {};
+    let leftButton = undefined;
     if (route.leftButton) {
       leftButton = route.leftButton;
+    }
+
+    let rightButton = undefined;
+    if (route.rightButton) {
+      rightButton = route.rightButton;
     }
 
     return (
@@ -46,6 +51,7 @@ export default React.createClass({
         <NavigationBar
           title={title}
           leftButton={leftButton}
+          rightButton={rightButton}
           />
 
         <Component
