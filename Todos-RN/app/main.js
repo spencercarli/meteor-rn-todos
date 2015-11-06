@@ -21,6 +21,13 @@ export default React.createClass({
     };
   },
 
+  configureScene(route) {
+    if (route.sceneConfig) {
+      return route.sceneConfig;
+    }
+    return Navigator.SceneConfigs.HorizontalSwipeJump;
+  },
+
   renderScene(route, navigator) {
     let Component = route.component;
 
@@ -61,6 +68,7 @@ export default React.createClass({
           }
         }}
         renderScene={this.renderScene}
+        configureScene={this.configureScene}
       />
     );
   }
