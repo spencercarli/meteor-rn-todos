@@ -4,7 +4,8 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ActionSheetIOS
+  ActionSheetIOS,
+  AlertIOS,
 } from 'react-native';
 
 let icon = require('image!fa-cog');
@@ -12,20 +13,32 @@ let icon = require('image!fa-cog');
 export default React.createClass({
   // Configuration
   displayName: 'List Options',
+  propTypes: {
+    loggedIn: React.PropTypes.bool
+  },
 
   // Event Handlers
   handleOptions() {
     let buttons = ['Make Private', 'Delete', 'Cancel'];
+    let loggedIn = this.props.loggedIn; // Pull from props
+
     ActionSheetIOS.showActionSheetWithOptions({
       options: buttons,
       cancelButtonIndex: 2,
       destructiveButtonIndex: 1
     }, (buttonIndex) => {
       if (buttonIndex === 0) {
-        // TODO: Check if user is logged in.
-        // If yes, make private.
-        // If no, prompt to sign up or sign in
-        console.log('Todo: Make Private');
+        if (loggedIn) {
+          console.log('TODO: Make List Private');
+        } else {
+          AlertIOS.alert(
+            'Not Logged In',
+            'Please sign in or create an account to make private lists.',
+            [
+              { text: 'Okay'}
+            ]
+          );
+        }
       } else if (buttonIndex === 1) {
         console.log('Todo: Delete list and items');
       }

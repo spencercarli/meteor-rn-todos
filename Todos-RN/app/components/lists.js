@@ -20,7 +20,8 @@ export default React.createClass({
   // Configuration
   displayName: 'Lists',
   propTypes: {
-    lists: React.PropTypes.array
+    lists: React.PropTypes.array,
+    loggedIn: React.PropTypes.bool
   },
 
   // Initial Value (State and Props)
@@ -56,7 +57,7 @@ export default React.createClass({
         title: "Back",
         handler: () => nav.pop()
       },
-      rightButton: <ListOptions navigator={nav} />,
+      rightButton: <ListOptions navigator={nav} loggedIn={this.props.loggedIn}/>,
       passProps: {
         todos: todos
       }

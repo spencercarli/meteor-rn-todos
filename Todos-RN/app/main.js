@@ -18,7 +18,8 @@ export default React.createClass({
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      lists: data.lists
+      lists: data.lists,
+      loggedIn: true
     };
   },
 
@@ -72,7 +73,8 @@ export default React.createClass({
           title: "Todo Lists",
           rightButton: <AppOptions />,
           passProps: {
-            lists: this.state.lists
+            lists: this.state.lists,
+            loggedIn: this.state.loggedIn
           }
         }}
         renderScene={this.renderScene}
