@@ -10,6 +10,7 @@ import {
 
 let icon = require('image!fa-cog');
 let SignUp = require('./signUp');
+let SignIn = require('./signIn');
 
 export default React.createClass({
   // Configuration
@@ -35,7 +36,15 @@ export default React.createClass({
           }
         });
       } else if (buttonIndex === 1) {
-        console.log('Todo: Sign In');
+        nav.push({
+          title: 'Sign In',
+          component: SignIn,
+          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+          leftButton: {
+            title: 'Cancel',
+            handler: () => nav.pop()
+          }
+        });
       }
     });
   },
