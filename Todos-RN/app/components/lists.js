@@ -8,6 +8,10 @@ let {
   TouchableHighlight,
 } = React;
 
+let Todos = require('./todos');
+let data = require('../config/data');
+let _ = require('underscore');
+
 export default React.createClass({
   // Configuration
   displayName: 'Lists',
@@ -23,8 +27,24 @@ export default React.createClass({
   },
 
   // Click Handlers
-  handlePress() {
-    console.log('press!');
+  handlePress(list) {
+    let nav = this.props.navigator;
+
+    if (!nav) return;
+
+    let todos = _.where(data.todos, {listId: list._id});
+
+    nav.push({
+      component: Todos,
+      title: list.name,
+      leftButton: {
+        title: "Back",
+        handler: () => nav.pop()
+      },
+      passProps: {
+        todos: todos
+      }
+    });
   },
 
   // Sub-render
@@ -34,7 +54,7 @@ export default React.createClass({
         <View key={list._id}>
           <TouchableHighlight
             underlayColor='rgba(0, 0, 0, 0.1)'
-            onPress={this.handlePress}
+            onPress={() => this.handlePress(list)}
             >
             <View style={styles.row}>
               <Text>{list.name}</Text>

@@ -29,11 +29,22 @@ export default React.createClass({
       title.title = route.title;
     }
 
+    let leftButton = {};
+    if (route.leftButton) {
+      leftButton = route.leftButton;
+    }
+
     return (
       <View style={styles.container}>
-        <NavigationBar title={title}/>
+        <NavigationBar
+          title={title}
+          leftButton={leftButton}
+          />
 
-        <Component {...route.passProps} />
+        <Component
+          navigator={navigator}
+          {...route.passProps}
+          />
       </View>
     );
   },
