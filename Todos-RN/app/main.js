@@ -9,6 +9,7 @@ let {
 let data = require('./config/data');
 let Lists = require('./components/lists');
 let NavigationBar = require('react-native-navbar');
+let AppOptions = require('./components/appOptions');
 
 export default React.createClass({
   // Configuration
@@ -43,7 +44,7 @@ export default React.createClass({
 
     let rightButton = undefined;
     if (route.rightButton) {
-      rightButton = route.rightButton;
+      rightButton = React.cloneElement(route.rightButton, {navigator: navigator});
     }
 
     return (
@@ -69,6 +70,7 @@ export default React.createClass({
         initialRoute={{
           component: Lists,
           title: "Todo Lists",
+          rightButton: <AppOptions />,
           passProps: {
             lists: this.state.lists
           }

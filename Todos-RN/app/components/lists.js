@@ -7,11 +7,11 @@ let {
   PixelRatio,
   TouchableHighlight,
   Image,
-  ActionSheetIOS,
 } = React;
 
 let Todos = require('./todos');
 let ListItemAdd = require('./listItemAdd');
+let ListOptions = require('./listOptions');
 
 let data = require('../config/data');
 let _ = require('underscore');
@@ -56,10 +56,7 @@ export default React.createClass({
         title: "Back",
         handler: () => nav.pop()
       },
-      rightButton: {
-        title: "Options",
-        handler: this.handleOptions
-      },
+      rightButton: <ListOptions navigator={nav} />,
       passProps: {
         todos: todos
       }
