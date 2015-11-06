@@ -8,6 +8,7 @@
     "android": "react-native run-android"
   },
   "dependencies": {
-    "react-native": "^0.13.2"
+    "react-native": "^0.13.2",
+    "react-native-navbar": "^1.0.4"
   }
 }
