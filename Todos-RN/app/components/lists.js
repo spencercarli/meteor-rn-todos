@@ -76,6 +76,10 @@ export default React.createClass({
             onPress={() => this.handlePress(list)}
             >
             <View style={styles.row}>
+              <View style={styles.incomplete}>
+                <Text style={styles.incompleteText}>{list.incompleteCount}</Text>
+              </View>
+
               <Text>{list.name}</Text>
 
               <Image
@@ -115,5 +119,17 @@ const styles = StyleSheet.create({
   rightIcon: {
     position: 'absolute',
     right: 15
+  },
+  incompleteText: {
+    color: '#ffffff',
+  },
+  incomplete: {
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
