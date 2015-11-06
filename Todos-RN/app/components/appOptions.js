@@ -4,10 +4,12 @@ import {
   View,
   Image,
   TouchableOpacity,
-  ActionSheetIOS
+  ActionSheetIOS,
+  Navigator
 } from 'react-native';
 
 let icon = require('image!fa-cog');
+let SignUp = require('./signUp');
 
 export default React.createClass({
   // Configuration
@@ -16,12 +18,22 @@ export default React.createClass({
   // Event Handlers
   handleOptions() {
     let buttons = ['Sign Up', 'Sign In', 'Cancel'];
+    let nav = this.props.navigator;
+
     ActionSheetIOS.showActionSheetWithOptions({
       options: buttons,
       cancelButtonIndex: 2,
     }, (buttonIndex) => {
-      if (buttonIndex === 0) {
-        console.log('Todo: Sign Up');
+      if (buttonIndex === 0 && nav) {
+        nav.push({
+          title: 'Sign Up',
+          component: SignUp,
+          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+          leftButton: {
+            title: 'Cancel',
+            handler: () => nav.pop()
+          }
+        });
       } else if (buttonIndex === 1) {
         console.log('Todo: Sign In');
       }
