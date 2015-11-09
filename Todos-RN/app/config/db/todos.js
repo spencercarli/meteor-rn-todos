@@ -7,11 +7,21 @@ TodosDB.subscribeToTodos = (listId) => {
   return ddpClient.subscribe('todos', [listId]);
 };
 
-TodosDB.getTodos = (listId) => {
-  return new Promise(function (resolve, reject){
-    resolve(ddpClient.connection.collections.todos.find({listId: listId}));
+TodosDB.observeTodos = (listId, cb) => {
+  let observer = ddpClient.connection.collections.observe(() => {
+    return ddpClient.connection.collections.todos.find({listId: listId});
+  });
+
+  observer.subscribe((results) => {
+    cb(results);
   });
 };
+
+// TodosDB.getTodos = (listId) => {
+//   return new Promise(function (resolve, reject){
+//     resolve(ddpClient.connection.collections.todos.find({listId: listId}));
+//   });
+// };
 
 TodosDB.addTodo = (todo) => {
   console.log('TODO: Submit new todo', todo);

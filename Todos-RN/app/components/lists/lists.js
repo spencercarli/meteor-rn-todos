@@ -33,14 +33,14 @@ export default React.createClass({
   componentWillMount() {
     ListsDB.subscribeToLists()
       .then(() => {
-        return ListsDB.getLists();
-      })
-      .then((lists) => {
-        this.setState({lists: lists});
+        ListsDB.observeLists((results) => {
+          this.setState({lists: results});
+        });
       })
       .catch((err) => {
         console.log('Error: ', err);
       });
+
   },
 
   // Event Handlers

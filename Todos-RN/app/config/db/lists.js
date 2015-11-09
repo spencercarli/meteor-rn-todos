@@ -6,11 +6,21 @@ ListsDB.subscribeToLists = () => {
   return ddpClient.subscribe('publicLists', []);
 };
 
-ListsDB.getLists = (userId) => {
-  return new Promise(function (resolve, reject){
-    resolve(ddpClient.connection.collections.lists.find());
+ListsDB.observeLists = (cb) => {
+  let observer = ddpClient.connection.collections.observe(() => {
+    return ddpClient.connection.collections.lists.find();
+  });
+
+  observer.subscribe((results) => {
+    cb(results);
   });
 };
+
+// ListsDB.getLists = (userId) => {
+//   return new Promise(function (resolve, reject){
+//     resolve(ddpClient.connection.collections.lists.find());
+//   });
+// };
 
 ListsDB.addNewList = (listName) => {
   console.log('TODO: Submit new list');

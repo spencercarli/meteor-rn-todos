@@ -25,12 +25,12 @@ export default React.createClass({
 
   // Component Lifecycle
   componentWillMount() {
-    TodosDB.subscribeToTodos(this.props.listId)
+    let listId = this.props.listId;
+    TodosDB.subscribeToTodos(listId)
       .then(() => {
-        return TodosDB.getTodos(this.props.listId)
-      })
-      .then((todos) => {
-        this.setState({todos: todos});
+        TodosDB.observeTodos(listId, (results) => {
+          this.setState({todos: results});
+        });
       })
       .catch((err) => {
         console.log('Error: ', err);
