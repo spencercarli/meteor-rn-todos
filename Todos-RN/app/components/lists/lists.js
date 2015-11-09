@@ -116,7 +116,8 @@ const styles = StyleSheet.create({
   },
   rightIcon: {
     position: 'absolute',
-    right: 15
+    right: 15,
+    tintColor: 'rgba(0, 0, 0, 0.25)'
   },
   incompleteText: {
     color: '#ffffff',

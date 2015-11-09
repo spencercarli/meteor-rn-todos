@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     height: 20
   },
   icon: {
-    marginRight: 10
+    marginRight: 10,
+    tintColor: 'rgba(0, 0, 0, 0.25)'
   },
   border: {
     height: 1 / PixelRatio.get(),

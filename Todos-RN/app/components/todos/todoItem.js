@@ -67,10 +67,12 @@ const styles = StyleSheet.create({
   },
   leftIcon: {
     marginRight: 10,
+    tintColor: 'rgba(0, 0, 0, 0.25)'
   },
   rightIcon: {
     position: 'absolute',
-    right: 15
+    right: 15,
+    tintColor: 'rgba(0, 0, 0, 0.25)'
   },
   textChecked: {
     textDecorationLine: 'line-through'

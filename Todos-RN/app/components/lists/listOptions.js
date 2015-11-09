@@ -52,7 +52,10 @@ export default React.createClass({
         style={styles.container}
         onPress={this.handleOptions}
         >
-        <Image source={icon} />
+        <Image
+          source={icon}
+          style={styles.icon}
+          />
       </TouchableOpacity>
     );
   }
@@ -61,5 +64,8 @@ export default React.createClass({
 const styles = StyleSheet.create({
   container: {
     marginRight: 8
+  },
+  icon: {
+    tintColor: 'rgba(0, 0, 0, 0.5)'
   }
 });
