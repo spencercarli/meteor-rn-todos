@@ -19,7 +19,7 @@ export default React.createClass({
   getInitialState() {
     return {
       lists: data.lists,
-      loggedIn: true
+      loggedIn: false
     };
   },
 
@@ -71,7 +71,7 @@ export default React.createClass({
         initialRoute={{
           component: Lists,
           title: "Todo Lists",
-          rightButton: <AppOptions />,
+          rightButton: <AppOptions loggedIn={this.state.loggedIn} />,
           passProps: {
             lists: this.state.lists,
             loggedIn: this.state.loggedIn

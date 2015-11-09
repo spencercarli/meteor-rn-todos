@@ -20,47 +20,55 @@ export default React.createClass({
   },
 
   // Event Handlers
+  handleLoggedIn(nav) {
+    let buttons = ['Sign Out', 'Cancel'];
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: buttons,
+      cancelButtonIndex: 1,
+    }, (buttonIndex) => {
+      if (buttonIndex === 0) {
+        console.log('TODO: Handle Logout');
+      }
+    });
+  },
+
+  handleLoggedOut(nav) {
+    let buttons = ['Sign Up', 'Sign In', 'Cancel'];
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: buttons,
+      cancelButtonIndex: 2,
+    }, (buttonIndex) => {
+      if (buttonIndex === 0) {
+        nav.push({
+          title: 'Sign Up',
+          component: SignUp,
+          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+          leftButton: {
+            title: 'Cancel',
+            handler: () => nav.pop()
+          }
+        });
+      } else if (buttonIndex === 1) {
+        nav.push({
+          title: 'Sign In',
+          component: SignIn,
+          sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
+          leftButton: {
+            title: 'Cancel',
+            handler: () => nav.pop()
+          }
+        });
+      }
+    });
+  },
+
   handleOptions() {
     let nav = this.props.navigator;
 
     if (this.props.loggedIn) {
-      let buttons = ['Sign Out', 'Cancel'];
-      ActionSheetIOS.showActionSheetWithOptions({
-        options: buttons,
-        cancelButtonIndex: 1,
-      }, (buttonIndex) => {
-        if (buttonIndex === 0 && nav) {
-          console.log('TODO: Handle Logout');
-        }
-      });
+      this.handleLoggedIn(nav);
     } else {
-      let buttons = ['Sign Up', 'Sign In', 'Cancel'];
-      ActionSheetIOS.showActionSheetWithOptions({
-        options: buttons,
-        cancelButtonIndex: 2,
-      }, (buttonIndex) => {
-        if (buttonIndex === 0 && nav) {
-          nav.push({
-            title: 'Sign Up',
-            component: SignUp,
-            sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
-            leftButton: {
-              title: 'Cancel',
-              handler: () => nav.pop()
-            }
-          });
-        } else if (buttonIndex === 1) {
-          nav.push({
-            title: 'Sign In',
-            component: SignIn,
-            sceneConfig: Navigator.SceneConfigs.VerticalUpSwipeJump,
-            leftButton: {
-              title: 'Cancel',
-              handler: () => nav.pop()
-            }
-          });
-        }
-      });
+      this.handleLoggedOut(nav);
     }
   },
 
