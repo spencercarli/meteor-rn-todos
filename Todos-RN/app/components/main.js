@@ -12,6 +12,9 @@ let AppOptions = require('./appOptions');
 
 let ddpClient = require('../config/db/lib/ddpClient');
 
+// Polyfill the process functionality needed for minimongo-cache
+global.process = require("../config/db/lib/process.polyfill");
+
 export default React.createClass({
   // Configuration
   displayName: 'Main',
@@ -19,13 +22,21 @@ export default React.createClass({
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      loggedIn: false
+      loggedIn: false,
+      loaded: false
     };
   },
 
   // Component Lifecycle
   componentWillMount() {
-    ddpClient.initialize();
+    ddpClient.initialize()
+      .then((res) => {
+        this.setState({loaded: true});
+      });
+  },
+
+  componentWillUnmount() {
+    ddpClient.close();
   },
 
   // Navigator Config
@@ -72,6 +83,14 @@ export default React.createClass({
 
   // Component Render
   render() {
+    if (!this.state.loaded) {
+      return (
+        <View>
+          <Text>Connecting...</Text>
+        </View>
+      );
+    }
+
     return (
       <Navigator
         initialRoute={{

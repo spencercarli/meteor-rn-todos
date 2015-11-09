@@ -1,4 +1,5 @@
 let DDPClient = require("ddp-client");
+let _ = require("underscore");
 
 let ddpClient = new DDPClient({
   // All properties optional, defaults shown
@@ -14,12 +15,8 @@ let ddpClient = new DDPClient({
   // socketConstructor: WebSocket // Another constructor to create new WebSockets
 });
 
-/*
- * Connect to the Meteor Server
- */
-// ddpclient.connect();
-
 let ddp = {};
+ddp.connection = ddpClient;
 
 ddp.initialize = () => {
   return new Promise(function(resolve, reject) {
@@ -36,6 +33,22 @@ ddp.initialize = () => {
       }
 
       console.log('connected!');
+      resolve(true);
+    });
+  });
+};
+
+ddp.close = function() {
+  return ddpClient.close();
+};
+
+ddp.subscribe = function(pubName, params) {
+  params = params || undefined;
+  if (params && !_.isArray(params)) {
+    console.warn('Params must be passed as an array to ddp.subscribe');
+  }
+  return new Promise(function(resolve, reject) {
+    ddpClient.subscribe(pubName, params, function () {
       resolve(true);
     });
   });

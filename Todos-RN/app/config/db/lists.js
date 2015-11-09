@@ -1,10 +1,14 @@
-let data = require('../data');
+let ddpClient = require('./lib/ddpClient');
 
 let ListsDB = {};
 
+ListsDB.subscribeToLists = () => {
+  return ddpClient.subscribe('publicLists', []);
+};
+
 ListsDB.getLists = (userId) => {
   return new Promise(function (resolve, reject){
-    resolve(data.lists);
+    resolve(ddpClient.connection.collections.lists.find());
   });
 };
 

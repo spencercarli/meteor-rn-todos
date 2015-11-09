@@ -1,13 +1,15 @@
-let data = require('../data');
+let ddpClient = require('./lib/ddpClient');
 let _ = require('underscore');
 
 let TodosDB = {};
 
-TodosDB.getTodos = (listId) => {
-  let todos = _.where(data.todos, {listId: listId});
+TodosDB.subscribeToTodos = (listId) => {
+  return ddpClient.subscribe('todos', [listId]);
+};
 
+TodosDB.getTodos = (listId) => {
   return new Promise(function (resolve, reject){
-    resolve(todos);
+    resolve(ddpClient.connection.collections.todos.find({listId: listId}));
   });
 };
 

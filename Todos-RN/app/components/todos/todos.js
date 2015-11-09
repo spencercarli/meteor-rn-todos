@@ -25,7 +25,10 @@ export default React.createClass({
 
   // Component Lifecycle
   componentWillMount() {
-    TodosDB.getTodos(this.props.listId)
+    TodosDB.subscribeToTodos(this.props.listId)
+      .then(() => {
+        return TodosDB.getTodos(this.props.listId)
+      })
       .then((todos) => {
         this.setState({todos: todos});
       })

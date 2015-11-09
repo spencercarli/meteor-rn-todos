@@ -31,7 +31,10 @@ export default React.createClass({
 
   // Component Lifecycle
   componentWillMount() {
-    ListsDB.getLists()
+    ListsDB.subscribeToLists()
+      .then(() => {
+        return ListsDB.getLists();
+      })
       .then((lists) => {
         this.setState({lists: lists});
       })
