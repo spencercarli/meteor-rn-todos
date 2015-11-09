@@ -9,7 +9,7 @@ var {
   AppRegistry,
 } = React;
 
-let Main = require('./app/main.js');
+let Main = require('./app/components/main.js');
 
 var Todos = React.createClass({
   render: function() {

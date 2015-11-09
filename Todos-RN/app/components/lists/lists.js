@@ -9,11 +9,11 @@ let {
   Image,
 } = React;
 
-let Todos = require('./todos');
+let Todos = require('../todos/todos');
 let ListItemAdd = require('./listItemAdd');
 let ListOptions = require('./listOptions');
 
-let data = require('../config/data');
+let data = require('../../config/data');
 let _ = require('underscore');
 
 export default React.createClass({

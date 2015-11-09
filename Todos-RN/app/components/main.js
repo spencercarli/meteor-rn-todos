@@ -6,10 +6,10 @@ let {
   Navigator,
 } = React;
 
-let data = require('./config/data');
-let Lists = require('./components/lists');
+let data = require('../config/data');
+let Lists = require('./lists/lists');
 let NavigationBar = require('react-native-navbar');
-let AppOptions = require('./components/appOptions');
+let AppOptions = require('./appOptions');
 
 export default React.createClass({
   // Configuration

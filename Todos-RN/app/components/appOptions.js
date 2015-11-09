@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 
 let icon = require('image!fa-cog');
-let SignUp = require('./signUp');
-let SignIn = require('./signIn');
+let SignUp = require('./accounts/signUp');
+let SignIn = require('./accounts/signIn');
 
 export default React.createClass({
   // Configuration
