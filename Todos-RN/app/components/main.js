@@ -10,6 +10,8 @@ let Lists = require('./lists/lists');
 let NavigationBar = require('react-native-navbar');
 let AppOptions = require('./appOptions');
 
+let ddpClient = require('../config/db/lib/ddpClient');
+
 export default React.createClass({
   // Configuration
   displayName: 'Main',
@@ -21,6 +23,12 @@ export default React.createClass({
     };
   },
 
+  // Component Lifecycle
+  componentWillMount() {
+    ddpClient.initialize();
+  },
+
+  // Navigator Config
   configureScene(route) {
     if (route.sceneConfig) {
       return route.sceneConfig;
