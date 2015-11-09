@@ -7,23 +7,36 @@ import {
 let TodoItem = require('./todoItem');
 let TodoItemAdd = require('./todoItemAdd');
 
+let TodosDB = require('../../config/db/todos');
+
 export default React.createClass({
   // Configuration
   displayName: 'Todos',
   propTypes: {
-    todos: React.PropTypes.array
+    listId: React.PropTypes.string
   },
 
   // Initial Value (State and Props)
-  getDefaultProps() {
+  getInitialState() {
     return {
       todos: []
     };
   },
 
+  // Component Lifecycle
+  componentWillMount() {
+    TodosDB.getTodos(this.props.listId)
+      .then((todos) => {
+        this.setState({todos: todos});
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+      });
+  },
+
   // Sub-render
   renderItems() {
-    return this.props.todos.map((todo, i) => {
+    return this.state.todos.map((todo, i) => {
       return <TodoItem todo={todo} key={todo._id} />
     });
   },

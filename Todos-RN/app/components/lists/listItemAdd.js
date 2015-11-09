@@ -9,6 +9,8 @@ import {
 
 let addIcon = require('image!fa-plus-circle');
 
+let ListsDB = require('../../config/db/lists');
+
 export default React.createClass({
   // Configuration
   displayName: 'List Item Add',
@@ -23,7 +25,7 @@ export default React.createClass({
   // Event Handlers
   handleSubmit() {
     if (this.state.list.length) {
-      console.log('TODO: Submit new list');
+      ListsDB.addNewList(this.state.list);
       this.setState({list: ''});
       this.refs.input.clear();
     }

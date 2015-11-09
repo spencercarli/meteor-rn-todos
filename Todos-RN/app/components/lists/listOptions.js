@@ -10,6 +10,8 @@ import {
 
 let icon = require('image!fa-cog');
 
+let ListsDB = require('../../config/db/lists');
+
 export default React.createClass({
   // Configuration
   displayName: 'List Options',
@@ -29,7 +31,7 @@ export default React.createClass({
     }, (buttonIndex) => {
       if (buttonIndex === 0) {
         if (loggedIn) {
-          console.log('TODO: Make List Private');
+          ListsDB.makeListPrivate()
         } else {
           AlertIOS.alert(
             'Not Logged In',
@@ -40,7 +42,7 @@ export default React.createClass({
           );
         }
       } else if (buttonIndex === 1) {
-        console.log('Todo: Delete list and items');
+        ListsDB.deleteList()
       }
     });
   },

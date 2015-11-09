@@ -6,7 +6,6 @@ let {
   Navigator,
 } = React;
 
-let data = require('../config/data');
 let Lists = require('./lists/lists');
 let NavigationBar = require('react-native-navbar');
 let AppOptions = require('./appOptions');
@@ -18,7 +17,6 @@ export default React.createClass({
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      lists: data.lists,
       loggedIn: false
     };
   },
@@ -73,7 +71,6 @@ export default React.createClass({
           title: "Todo Lists",
           rightButton: <AppOptions loggedIn={this.state.loggedIn} />,
           passProps: {
-            lists: this.state.lists,
             loggedIn: this.state.loggedIn
           }
         }}

@@ -12,6 +12,8 @@ let icon = require('image!fa-cog');
 let SignUp = require('./accounts/signUp');
 let SignIn = require('./accounts/signIn');
 
+let Accounts = require('../config/db/accounts');
+
 export default React.createClass({
   // Configuration
   displayName: 'App Options',
@@ -27,7 +29,7 @@ export default React.createClass({
       cancelButtonIndex: 1,
     }, (buttonIndex) => {
       if (buttonIndex === 0) {
-        console.log('TODO: Handle Logout');
+        Accounts.logout();
       }
     });
   },

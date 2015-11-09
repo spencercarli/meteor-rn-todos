@@ -13,42 +13,38 @@ let Todos = require('../todos/todos');
 let ListItemAdd = require('./listItemAdd');
 let ListOptions = require('./listOptions');
 
-let data = require('../../config/data');
-let _ = require('underscore');
+let ListsDB = require('../../config/db/lists');
 
 export default React.createClass({
   // Configuration
   displayName: 'Lists',
   propTypes: {
-    lists: React.PropTypes.array,
     loggedIn: React.PropTypes.bool
   },
 
   // Initial Value (State and Props)
-  getDefaultProps() {
+  getInitialState() {
     return {
       lists: []
-    };
+    }
   },
 
-  // Click Handlers
-  handleOptions() {
-    let buttons = ['Make Private', 'Delete', 'Cancel'];
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: buttons,
-      cancelButtonIndex: 2,
-      destructiveButtonIndex: 1
-    }, (buttonIndex) => {
-      console.log('Todo: Options');
-    });
+  // Component Lifecycle
+  componentWillMount() {
+    ListsDB.getLists()
+      .then((lists) => {
+        this.setState({lists: lists});
+      })
+      .catch((err) => {
+        console.log('Error: ', err);
+      });
   },
 
+  // Event Handlers
   handlePress(list) {
     let nav = this.props.navigator;
 
     if (!nav) return;
-
-    let todos = _.where(data.todos, {listId: list._id});
 
     nav.push({
       component: Todos,
@@ -59,14 +55,14 @@ export default React.createClass({
       },
       rightButton: <ListOptions navigator={nav} loggedIn={this.props.loggedIn}/>,
       passProps: {
-        todos: todos
+        listId: list._id
       }
     });
   },
 
   // Sub-render
   renderItems() {
-    return this.props.lists.map((list, i) => {
+    return this.state.lists.map((list, i) => {
       return (
         <View key={list._id}>
           <TouchableHighlight

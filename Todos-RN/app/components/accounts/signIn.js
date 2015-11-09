@@ -8,6 +8,8 @@ import {
 
 let styles = require('./_accountsStyles');
 
+let Accounts = require('../../config/db/accounts');
+
 export default React.createClass({
   // Configuration
   displayName: 'Sign In',
@@ -30,7 +32,7 @@ export default React.createClass({
 
     this.setState({email: '', password: ''}, () => {
       this.props.navigator.pop();
-      console.log('TODO: Handle Sign In');
+      Accounts.signIn(email, password);
     });
   },
 

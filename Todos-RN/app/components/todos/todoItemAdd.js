@@ -9,6 +9,8 @@ import {
 
 let addIcon = require('image!fa-plus-circle');
 
+let TodosDB = require('../../config/db/todos');
+
 export default React.createClass({
   // Configuration
   displayName: 'Todo Item Add',
@@ -23,7 +25,7 @@ export default React.createClass({
   // Event Handlers
   handleSubmit() {
     if (this.state.task.length) {
-      console.log('TODO: Submit new task');
+      TodosDB.addTodo(this.state.task);
       this.setState({task: ''});
       this.refs.input.clear();
     }
