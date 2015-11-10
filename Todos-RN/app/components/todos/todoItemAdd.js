@@ -14,6 +14,9 @@ let TodosDB = require('../../config/db/todos');
 export default React.createClass({
   // Configuration
   displayName: 'Todo Item Add',
+  propTypes: {
+    listId: React.PropTypes.string
+  },
 
   // Initial State
   getInitialState() {
@@ -25,7 +28,7 @@ export default React.createClass({
   // Event Handlers
   handleSubmit() {
     if (this.state.task.length) {
-      TodosDB.addTodo(this.state.task);
+      TodosDB.addTodo(this.state.task, this.props.listId);
       this.setState({task: ''});
       this.refs.input.clear();
     }

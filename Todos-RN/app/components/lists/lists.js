@@ -49,6 +49,14 @@ export default React.createClass({
 
     if (!nav) return;
 
+    let rightButton = (
+      <ListOptions
+        navigator={nav}
+        loggedIn={this.props.loggedIn}
+        listId={list._id}
+        />
+    );
+
     nav.push({
       component: Todos,
       title: list.name,
@@ -56,7 +64,7 @@ export default React.createClass({
         title: "Back",
         handler: () => nav.pop()
       },
-      rightButton: <ListOptions navigator={nav} loggedIn={this.props.loggedIn}/>,
+      rightButton: rightButton,
       passProps: {
         listId: list._id
       }

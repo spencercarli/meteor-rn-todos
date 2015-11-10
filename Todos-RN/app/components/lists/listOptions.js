@@ -16,13 +16,15 @@ export default React.createClass({
   // Configuration
   displayName: 'List Options',
   propTypes: {
-    loggedIn: React.PropTypes.bool
+    loggedIn: React.PropTypes.bool,
+    listId: React.PropTypes.string
   },
 
   // Event Handlers
   handleOptions() {
     let buttons = ['Make Private', 'Delete', 'Cancel'];
     let loggedIn = this.props.loggedIn; // Pull from props
+    let user = this.props.user;
 
     ActionSheetIOS.showActionSheetWithOptions({
       options: buttons,
@@ -31,7 +33,7 @@ export default React.createClass({
     }, (buttonIndex) => {
       if (buttonIndex === 0) {
         if (loggedIn) {
-          ListsDB.makeListPrivate()
+          ListsDB.changeListVisibility(this.props.listId, user && user._id);
         } else {
           AlertIOS.alert(
             'Not Logged In',
@@ -42,7 +44,8 @@ export default React.createClass({
           );
         }
       } else if (buttonIndex === 1) {
-        ListsDB.deleteList()
+        this.props.navigator.pop();
+        ListsDB.deleteList(this.props.listId);
       }
     });
   },

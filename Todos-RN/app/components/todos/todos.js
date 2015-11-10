@@ -48,7 +48,7 @@ export default React.createClass({
   render() {
     return (
       <ScrollView>
-        <TodoItemAdd />
+        <TodoItemAdd listId={this.props.listId} />
         {this.renderItems()}
       </ScrollView>
     )

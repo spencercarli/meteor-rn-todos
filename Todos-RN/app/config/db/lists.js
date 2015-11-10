@@ -23,15 +23,29 @@ ListsDB.observeLists = (cb) => {
 // };
 
 ListsDB.addNewList = (listName) => {
-  console.log('TODO: Submit new list');
+  return ddpClient.call('Lists.insert', [false, listName]);
 };
 
-ListsDB.makeListPrivate = (listId, userId) => {
-  console.log('TODO: Make List Private');
+ListsDB.changeListVisibility = (listId, userId) => {
+  let mod = {$unset: {userId: true}};
+
+  if (userId) {
+    mod = {$set: {userId: userId}};
+  }
+
+  return ddpClient.call('Lists.update', [listId, mod]);
 };
 
 ListsDB.deleteList = (listId) => {
-  console.log('Todo: Delete list and items');
+  let todosColl = ddpClient.connection.collections.todos;
+  if (todosColl) {
+    let todos = todosColl.find();
+    for (var i = 0; i < todos.length; i++) {
+      ddpClient.call('Todos.remove', [todos[i]._id]);
+    }
+  }
+
+  return ddpClient.call('Lists.remove', [listId]);
 };
 
 module.exports = ListsDB;

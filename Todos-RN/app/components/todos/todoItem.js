@@ -30,7 +30,7 @@ export default React.createClass({
       return (
         <TouchableOpacity
           style={styles.rightIconContainer}
-          onPress={() => TodosDB.deleteTodo(todo._id)}
+          onPress={() => TodosDB.deleteTodo(todo)}
         >
           <Image
             source={trashIcon}
@@ -51,7 +51,7 @@ export default React.createClass({
 
     return (
       <TouchableOpacity
-        onPress={() => TodosDB.changeTodoState(todo._id, !todo.checked)}
+        onPress={() => TodosDB.changeTodoState(todo, !todo.checked)}
       >
         <Image
           source={actionIcon}

@@ -22,7 +22,7 @@ export default React.createClass({
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      loggedIn: false,
+      loggedIn: true,
       loaded: false
     };
   },
@@ -85,7 +85,7 @@ export default React.createClass({
   render() {
     if (!this.state.loaded) {
       return (
-        <View>
+        <View style={styles.loading}>
           <Text>Connecting...</Text>
         </View>
       );
@@ -112,4 +112,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 });
