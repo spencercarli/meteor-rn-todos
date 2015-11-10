@@ -19,7 +19,7 @@ export default React.createClass({
   // Configuration
   displayName: 'Lists',
   propTypes: {
-    loggedIn: React.PropTypes.bool
+    user: React.PropTypes.object
   },
 
   // Initial Value (State and Props)
@@ -52,8 +52,8 @@ export default React.createClass({
     let rightButton = (
       <ListOptions
         navigator={nav}
-        loggedIn={this.props.loggedIn}
-        listId={list._id}
+        user={this.props.user}
+        list={list}
         />
     );
 

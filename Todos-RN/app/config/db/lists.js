@@ -3,7 +3,10 @@ let ddpClient = require('./lib/ddpClient');
 let ListsDB = {};
 
 ListsDB.subscribeToLists = () => {
-  return ddpClient.subscribe('publicLists', []);
+  return ddpClient.subscribe('publicLists', [])
+    .then(() => {
+      return ddpClient.subscribe('privateLists', []);
+    });
 };
 
 ListsDB.observeLists = (cb) => {

@@ -22,8 +22,9 @@ export default React.createClass({
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      loggedIn: true,
-      loaded: false
+      loaded: false,
+      user: {},
+      // user: {_id: 'MoY9sZmKTmEvJEN8e'} // for testing
     };
   },
 
@@ -96,9 +97,9 @@ export default React.createClass({
         initialRoute={{
           component: Lists,
           title: "Todo Lists",
-          rightButton: <AppOptions loggedIn={this.state.loggedIn} />,
+          rightButton: <AppOptions user={this.state.user} />,
           passProps: {
-            loggedIn: this.state.loggedIn
+            user: this.state.user
           }
         }}
         renderScene={this.renderScene}

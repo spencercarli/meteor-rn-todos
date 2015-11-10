@@ -18,7 +18,7 @@ export default React.createClass({
   // Configuration
   displayName: 'App Options',
   propTypes: {
-    loggedIn: React.PropTypes.bool
+    user: React.PropTypes.object
   },
 
   // Event Handlers
@@ -67,7 +67,7 @@ export default React.createClass({
   handleOptions() {
     let nav = this.props.navigator;
 
-    if (this.props.loggedIn) {
+    if (Object.keys(this.props.user).length > 0) {
       this.handleLoggedIn(nav);
     } else {
       this.handleLoggedOut(nav);
