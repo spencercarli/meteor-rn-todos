@@ -11,6 +11,7 @@ let NavigationBar = require('react-native-navbar');
 let AppOptions = require('./appOptions');
 
 let ddpClient = require('../config/db/lib/ddpClient');
+let Accounts = require('../config/db/accounts');
 
 // Polyfill the process functionality needed for minimongo-cache
 global.process = require("../config/db/lib/process.polyfill");
@@ -31,8 +32,16 @@ export default React.createClass({
   // Component Lifecycle
   componentWillMount() {
     ddpClient.initialize()
+      .then(() => {
+        return Accounts.signInWithToken();
+      })
       .then((res) => {
-        this.setState({loaded: true});
+        if (res.userId) {
+          this.setState({user: {_id: res.userId}});
+        }
+      })
+      .then((res) => {
+        return this.setState({loaded: true});
       });
   },
 

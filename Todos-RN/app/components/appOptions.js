@@ -29,7 +29,7 @@ export default React.createClass({
       cancelButtonIndex: 1,
     }, (buttonIndex) => {
       if (buttonIndex === 0) {
-        Accounts.logout();
+        Accounts.signOut();
       }
     });
   },
