@@ -1,7 +1,7 @@
 import React from 'react-native';
 import {
-  ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
+  ListView
 } from 'react-native';
 
 let TodoItem = require('./todoItem');
@@ -18,8 +18,9 @@ export default React.createClass({
 
   // Initial Value (State and Props)
   getInitialState() {
+    let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     return {
-      todos: []
+      todos: ds.cloneWithRows([]),
     };
   },
 
@@ -29,7 +30,7 @@ export default React.createClass({
     TodosDB.subscribeToTodos(listId)
       .then(() => {
         TodosDB.observeTodos(listId, (results) => {
-          this.setState({todos: results});
+          this.setState({todos: this.state.todos.cloneWithRows(results)});
         });
       })
       .catch((err) => {
@@ -38,19 +39,17 @@ export default React.createClass({
   },
 
   // Sub-render
-  renderItems() {
-    return this.state.todos.map((todo, i) => {
-      return <TodoItem todo={todo} key={todo._id} />
-    });
+  renderItem(todo) {
+    return <TodoItem todo={todo} key={todo._id} />;
   },
 
   // Component Render
   render() {
     return (
-      <ScrollView>
-        <TodoItemAdd listId={this.props.listId} />
-        {this.renderItems()}
-      </ScrollView>
-    )
+      <ListView
+        dataSource={this.state.todos}
+        renderRow={this.renderItem}
+        />
+    );
   }
 });
