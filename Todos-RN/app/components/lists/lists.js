@@ -14,18 +14,17 @@ let ListItemAdd = require('./listItemAdd');
 let ListOptions = require('./listOptions');
 
 let ListsDB = require('../../config/db/lists');
+let Accounts = require('../../config/db/accounts');
 
 export default React.createClass({
   // Configuration
   displayName: 'Lists',
-  propTypes: {
-    user: React.PropTypes.object
-  },
 
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      lists: []
+      lists: [],
+      user: {}
     }
   },
 
@@ -41,19 +40,27 @@ export default React.createClass({
         console.log('Error: ', err);
       });
 
+    Accounts.emitter.on('loggedIn', (userId) => {
+      this.setState({user: {_id: userId}});
+    });
+
+    Accounts.emitter.on('loggedOut', () => {
+      this.setState({user: {}});
+    });
   },
 
   // Event Handlers
   handlePress(list) {
     let nav = this.props.navigator;
+    let {user} = this.state;
 
     if (!nav) return;
 
     let rightButton = (
       <ListOptions
         navigator={nav}
-        user={this.props.user}
         list={list}
+        user={user}
         />
     );
 

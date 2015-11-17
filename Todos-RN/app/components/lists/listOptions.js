@@ -16,14 +16,14 @@ export default React.createClass({
   // Configuration
   displayName: 'List Options',
   propTypes: {
-    user: React.PropTypes.object,
-    list: React.PropTypes.object
+    list: React.PropTypes.object,
+    user: React.PropTypes.object
   },
 
   // Event Handlers
   handleOptions() {
     let buttons = ['Make Private', 'Delete', 'Cancel'];
-    let {user, list} = this.props;
+    let {list, user} = this.props;
 
     if (list.userId) {
       buttons[0] = "Make Public";
@@ -39,7 +39,7 @@ export default React.createClass({
           if (list.userId) {
             ListsDB.changeListVisibility(list._id, null);
           } else {
-            ListsDB.changeListVisibility(list._id, user._id);            
+            ListsDB.changeListVisibility(list._id, user._id);
           }
         } else {
           AlertIOS.alert(

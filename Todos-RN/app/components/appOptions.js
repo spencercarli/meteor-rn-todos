@@ -17,8 +17,23 @@ let Accounts = require('../config/db/accounts');
 export default React.createClass({
   // Configuration
   displayName: 'App Options',
-  propTypes: {
-    user: React.PropTypes.object
+
+  // Initial State
+  getInitialState() {
+    return {
+      user: {}
+    };
+  },
+
+  // Lifecycle Events
+  componentWillMount() {
+    Accounts.emitter.on('loggedIn', (userId) => {
+      this.setState({user: {_id: userId}});
+    });
+
+    Accounts.emitter.on('loggedOut', () => {
+      this.setState({user: {}});
+    });
   },
 
   // Event Handlers
@@ -67,7 +82,7 @@ export default React.createClass({
   handleOptions() {
     let nav = this.props.navigator;
 
-    if (Object.keys(this.props.user).length > 0) {
+    if (Object.keys(this.state.user).length > 0) {
       this.handleLoggedIn(nav);
     } else {
       this.handleLoggedOut(nav);

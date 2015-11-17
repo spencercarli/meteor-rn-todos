@@ -23,22 +23,12 @@ export default React.createClass({
   // Initial Value (State and Props)
   getInitialState() {
     return {
-      loaded: false,
-      user: {},
-      // user: {_id: 'MoY9sZmKTmEvJEN8e'} // for testing
+      loaded: false
     };
   },
 
   // Component Lifecycle
   componentWillMount() {
-    Accounts.emitter.on('loggedIn', (userId) => {
-      this.setState({user: {_id: userId}});
-    });
-
-    Accounts.emitter.on('loggedOut', () => {
-      this.setState({user: {}});
-    });
-
     ddpClient.initialize()
       .then(() => {
         return Accounts.signInWithToken();
@@ -110,10 +100,7 @@ export default React.createClass({
         initialRoute={{
           component: Lists,
           title: "Todo Lists",
-          rightButton: <AppOptions user={this.state.user} />,
-          passProps: {
-            user: this.state.user
-          }
+          rightButton: <AppOptions />
         }}
         renderScene={this.renderScene}
         configureScene={this.configureScene}
