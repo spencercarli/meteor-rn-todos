@@ -2,11 +2,41 @@ let React = require('react-native');
 let {AsyncStorage} = React;
 let ddpClient = require('./lib/ddpClient');
 
+let login = (loginObj, resolve, reject) => {
+  let obj = { loggedIn: false};
+  let loginParams = {};
+
+  if (loginObj.email && loginObj.password) {
+    loginParams = { user : { email : loginObj.email }, password : loginObj.password };
+  } else if (loginObj.resume) {
+    loginParams = { resume: loginObj.resume };
+  }
+
+  ddpClient.connection.call("login", [loginParams], (err, res) => {
+    if (err) {
+      reject(err);
+    }
+
+    if (res) {
+      AsyncStorage.setItem('userId', res.id)
+      AsyncStorage.setItem('loginToken', res.token);
+      AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
+
+      obj.loggedIn = true;
+      obj.userId = res.id;
+
+      resolve(obj);
+    } else {
+      resolve(obj);
+    }
+  });
+};
+
 let Accounts = {};
 
 Accounts.signOut = () => {
-  return new Promise(function(resolve, reject) {
-    ddpClient.connection.call("logout", [], function (err, res) {
+  return new Promise((resolve, reject) => {
+    ddpClient.connection.call("logout", [], (err, res) => {
       console.log('Logged out.');
       if (err) {
         console.log('err', err);
@@ -20,67 +50,20 @@ Accounts.signOut = () => {
 };
 
 Accounts.signIn = (email, password) => {
-  return new Promise(function(resolve, reject) {
-    var obj = {
-      loggedIn: false
-    };
-
-    ddpClient.connection.call("login", [
-      { user : { email : email }, password : password }
-    ], function (err, res) {
-      if (err) {
-        reject(err);
-      }
-
-      if (res) {
-        console.log('sucess!');
-        AsyncStorage.setItem('userId', res.id)
-        AsyncStorage.setItem('loginToken', res.token);
-        AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
-
-        obj.loggedIn = true;
-        obj.userId = res.id;
-
-        resolve(obj);
-      } else {
-        resolve(obj);
-      }
-    });
+  return new Promise((resolve, reject) => {
+    login({email: email, password: password}, resolve, reject);
   });
 };
 
 Accounts.signInWithToken = () => {
-  return new Promise(function(resolve, reject) {
+  return new Promise((resolve, reject) => {
     // Check if we have a loginToken in persistent client storage
     AsyncStorage.getItem('loginToken')
-      .then(function(token) {
-        var obj = {
-          loggedIn: false
-        };
-
-        // Login with said token
+      .then((token) => {
         if (token) {
-          ddpClient.connection.call("login", [{ resume: token }], function (err, res) {
-            console.log('Logged in with resume token.');
-            if (res) {
-              // Update information.
-              AsyncStorage.setItem('userId', res.id)
-              AsyncStorage.setItem('loginToken', res.token);
-              AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
-
-              obj = {
-                loggedIn: true,
-                userId: res.id
-              };
-
-              resolve(obj);
-            } else {
-              resolve(obj);
-            }
-          });
+          login({resume: token}, resolve, reject);
         } else {
-          console.log('No token found');
-          resolve(obj);
+          resolve({loggedIn: false});
         }
       });
   });
