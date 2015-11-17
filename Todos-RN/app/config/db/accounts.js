@@ -1,6 +1,7 @@
 let React = require('react-native');
 let {AsyncStorage} = React;
 let ddpClient = require('./lib/ddpClient');
+let EventEmitter = require('event-emitter');
 
 let login = (loginObj, resolve, reject) => {
   let obj = { loggedIn: false};
@@ -18,12 +19,15 @@ let login = (loginObj, resolve, reject) => {
     }
 
     if (res) {
-      AsyncStorage.setItem('userId', res.id)
+      let userId = res.id;
+      AsyncStorage.setItem('userId', userId)
       AsyncStorage.setItem('loginToken', res.token);
       AsyncStorage.setItem('loginTokenExpires', res.tokenExpires);
 
       obj.loggedIn = true;
-      obj.userId = res.id;
+      obj.userId = userId;
+
+      Accounts.emitter.emit('loggedIn', userId);
 
       resolve(obj);
     } else {
@@ -33,15 +37,18 @@ let login = (loginObj, resolve, reject) => {
 };
 
 let Accounts = {};
+Accounts.emitter = new EventEmitter();
 
 Accounts.signOut = () => {
   return new Promise((resolve, reject) => {
     ddpClient.connection.call("logout", [], (err, res) => {
-      console.log('Logged out.');
       if (err) {
         console.log('err', err);
       } else {
         console.log('delete the tokens');
+
+        Accounts.emitter.emit('loggedOut');
+
         AsyncStorage.multiRemove(['userId', 'loginToken', 'loginTokenExpires']);
       }
     });

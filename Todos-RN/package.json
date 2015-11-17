@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "ddp-client": "hharnisc/node-ddp-client#minimongo-cache",
+    "event-emitter": "^0.3.4",
     "react-native": "^0.13.2",
     "react-native-navbar": "^1.0.4",
     "underscore": "^1.8.3"

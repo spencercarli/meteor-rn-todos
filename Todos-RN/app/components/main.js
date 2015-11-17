@@ -31,18 +31,22 @@ export default React.createClass({
 
   // Component Lifecycle
   componentWillMount() {
+    Accounts.emitter.on('loggedIn', (userId) => {
+      this.setState({user: {_id: userId}});
+    });
+
+    Accounts.emitter.on('loggedOut', () => {
+      this.setState({user: {}});
+    });
+
     ddpClient.initialize()
       .then(() => {
         return Accounts.signInWithToken();
       })
       .then((res) => {
-        if (res.userId) {
-          this.setState({user: {_id: res.userId}});
-        }
-      })
-      .then((res) => {
         return this.setState({loaded: true});
       });
+
   },
 
   componentWillUnmount() {
