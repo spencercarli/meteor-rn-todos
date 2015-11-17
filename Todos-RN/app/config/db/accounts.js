@@ -37,7 +37,9 @@ let login = (loginObj, resolve, reject) => {
 };
 
 let Accounts = {};
+
 Accounts.emitter = new EventEmitter();
+Accounts.userId = AsyncStorage.getItem('userId');
 
 Accounts.signOut = () => {
   return new Promise((resolve, reject) => {

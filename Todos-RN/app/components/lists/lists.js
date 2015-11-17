@@ -40,6 +40,10 @@ export default React.createClass({
         console.log('Error: ', err);
       });
 
+    Accounts.userId.then((userId) => {
+      this.setState({user: {_id: userId}});
+    });
+
     Accounts.emitter.on('loggedIn', (userId) => {
       this.setState({user: {_id: userId}});
     });
