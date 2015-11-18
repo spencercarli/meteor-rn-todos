@@ -16,6 +16,8 @@ let ListOptions = require('./listOptions');
 let ListsDB = require('../../config/db/lists');
 let Accounts = require('../../config/db/accounts');
 
+let chevronRight = require('../../images/fa-chevron-right/fa-chevron-right.png');
+
 export default React.createClass({
   // Configuration
   displayName: 'Lists',
@@ -99,7 +101,7 @@ export default React.createClass({
               <Text>{list.name}</Text>
 
               <Image
-                source={require('image!fa-chevron-right')}
+                source={chevronRight}
                 style={styles.rightIcon}
                 />
             </View>

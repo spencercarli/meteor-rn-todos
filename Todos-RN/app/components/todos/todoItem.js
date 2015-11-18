@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-let openSquare = require('image!fa-square-o');
-let checkedSquare = require('image!fa-check-square-o');
-let trash = require('image!fa-trash-o');
+let openSquare = require('../../images/fa-square-o/fa-square-o.png');
+let checkedSquare = require('../../images/fa-check-square-o/fa-check-square-o.png');
+let trash = require('../../images/fa-trash-o/fa-trash-o.png');
 
 let TodosDB = require('../../config/db/todos');
 

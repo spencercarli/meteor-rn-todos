@@ -8,7 +8,7 @@ import {
   Navigator
 } from 'react-native';
 
-let icon = require('image!fa-cog');
+let icon = require('../images/fa-cog/fa-cog.png');
 let SignUp = require('./accounts/signUp');
 let SignIn = require('./accounts/signIn');
 

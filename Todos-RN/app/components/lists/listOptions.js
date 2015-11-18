@@ -8,7 +8,7 @@ import {
   AlertIOS,
 } from 'react-native';
 
-let icon = require('image!fa-cog');
+let icon = require('../../images/fa-cog/fa-cog.png');
 
 let ListsDB = require('../../config/db/lists');
 

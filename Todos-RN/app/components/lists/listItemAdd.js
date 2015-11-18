@@ -7,7 +7,7 @@ import {
   PixelRatio
 } from 'react-native';
 
-let addIcon = require('image!fa-plus-circle');
+let addIcon = require('../../images/fa-plus-circle/fa-plus-circle.png');
 
 let ListsDB = require('../../config/db/lists');
 

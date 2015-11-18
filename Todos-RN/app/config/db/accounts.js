@@ -6,7 +6,6 @@ let EventEmitter = require('event-emitter');
 let login = (loginObj, resolve, reject) => {
   let obj = { loggedIn: false};
   let loginParams = {};
-
   if (loginObj.email && loginObj.password) {
     loginParams = { user : { email : loginObj.email }, password : loginObj.password };
   } else if (loginObj.resume) {

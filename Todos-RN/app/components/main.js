@@ -35,7 +35,10 @@ export default React.createClass({
       })
       .then((res) => {
         return this.setState({loaded: true});
-      });
+      })
+      .catch((err) => {
+        return this.setState({loaded: true});        
+      })
 
   },
 
