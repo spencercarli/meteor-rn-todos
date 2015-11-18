@@ -43,11 +43,15 @@ export default React.createClass({
       });
 
     Accounts.userId.then((userId) => {
-      this.setState({user: {_id: userId}});
+      if (userId) {
+        this.setState({user: {_id: userId}});
+      }
     });
 
     Accounts.emitter.on('loggedIn', (userId) => {
-      this.setState({user: {_id: userId}});
+      if (userId) {
+        this.setState({user: {_id: userId}});        
+      }
     });
 
     Accounts.emitter.on('loggedOut', () => {
